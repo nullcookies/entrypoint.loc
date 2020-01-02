@@ -67,7 +67,7 @@ class App{
     }
 
 
-//requestContext
+//RequestContext
     private function setRequestContext()
     {
         $this->$requestContext = new RequestContext();
