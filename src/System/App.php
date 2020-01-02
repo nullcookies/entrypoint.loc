@@ -5,13 +5,14 @@ namespace App\System;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Responce;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
 use Symfony\Component\Routing\ResourceNotFoundException;
 use Symfony\Component\HttpKernel\Controller;
 use Symfony\Component\HttpKernel\Controller\ControllerResolver;
+use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 use Symfony\Component\Routing\RouteCollection;
 
 use Symfony\Component\Routing;
@@ -104,29 +105,42 @@ class App{
             array('cache_dir' => $this->basePath.'/storage/cache/')
         );
     }
+
+
 //Controller
     public function getController()
     {
         return (new ControllerResolver())->getController($this->request);
     }
 
+
+//Arguments
+    public function getArguments($controller)
+    {
+        return (new ArgumentResolver())->getArguments($this->request, $controller);
+    }
+
+
 //Run
     public function run()
     {
+        $response = null;
         $matcher = new Routing\Matcher\UrlMatcher($this->routes, $this->requestContext);
         try 
         {   
             $this->request->attributes->add($matcher->match($this->request->getPathInfo()));
 
-            $controller = $this->getController();
+            $this->controller = $this->getController();
+            $this->arguments = $this->getArguments($this->controller);
 
-            dd($controller);
-
-            //$arguments = $this->getArguments($controller);
+            $response = call_user_func_array($this->controller, $this->arguments);
         } 
         catch (\Exception $e) 
         {
-            exit ('error');
+            dd($e);
+            exit($e);
         }
+
+        $response->send();
     }
 } 

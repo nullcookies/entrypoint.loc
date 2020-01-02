@@ -2,8 +2,9 @@
 
 namespace App\Http;
 
-class indexController{
+class indexController extends Controller
+{
     public function indexAction(){
-        dd('hello');
+        return $this->render("index", ['title'=>"Index Page"]);
     }
 }
