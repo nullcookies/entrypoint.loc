@@ -1,0 +1,6 @@
+database:
+    dbname: "test"
+    user: "root"
+    password: ""
+    host: ""
+    driver: "pdo_mysql"

@@ -28,12 +28,14 @@ class App{
     private $controller;
     private $arguments;
     private $basePath;
+
+    private $container = [];
      
     private static $instance = null;
 
 
 //Singleton pattern
-    public static function getInstance($basepath)
+    public static function getInstance($basepath = null)
     {
         if(is_null(static::$instance))
         {
@@ -142,5 +144,26 @@ class App{
         }
 
         $response->send();
+    }
+
+
+//Container
+    public function add($key, $object)
+    {
+        $this->container[$key] = $object;
+        return $object;
+    }
+
+
+    public function get($key)
+    {
+        if(isset($this->container[$key]))
+        {
+            return $this->container[$key];
+        }
+        else
+        {
+            return null;
+        }
     }
 } 
