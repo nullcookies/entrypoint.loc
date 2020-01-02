@@ -1,2 +1,2 @@
-This is template index
-<php echo $title; ?>
+This is template index 
+<?php echo $title; ?>
