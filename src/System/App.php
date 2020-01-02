@@ -32,26 +32,39 @@ class App{
 
 
 //Singleton pattern
-    public static function getInstance($basePath)
+    public static function getInstance($basepath)
     {
         if(is_null(static::$instance))
         {
-            static::$instance = new static($basePath);
+            static::$instance = new static($basepath);
         }
         return static::$instance;
     }
 
 
 //Constructor
-    private function __construst($basePath)
+    private function __construct($basepath)
     {
-        $this->basePath = $basePath;
+        $this->basePath = $basepath;
 
         $this->setRequest();
         $this->setRequestContext();
         $this->setRouter();
         
         $this->routes = $this->router->getRouteCollection();
+    }
+
+//Clone
+    private function __clone()
+    {
+
+    }
+
+
+//Wakeup
+    private function __wakeup()
+    {
+
     }
 
 
@@ -63,15 +76,15 @@ class App{
 
     public function getRequest()
     {
-        return $this->$request;
+        return $this->request;
     }
 
 
 //RequestContext
     private function setRequestContext()
     {
-        $this->$requestContext = new RequestContext();
-        $this->$requestContext->fromRequest($this->request);
+        $this->requestContext = new RequestContext();
+        $this->requestContext->fromRequest($this->request);
     }
 
     public function getRequestContext()
@@ -102,13 +115,14 @@ class App{
     {
         $matcher = new Routing\Matcher\UrlMatcher($this->routes, $this->requestContext);
         try 
-        {
+        {   
             $this->request->attributes->add($matcher->match($this->request->getPathInfo()));
 
             $controller = $this->getController();
-            //$arguments = $this->getArguments($controller);
 
             dd($controller);
+
+            //$arguments = $this->getArguments($controller);
         } 
         catch (\Exception $e) 
         {
