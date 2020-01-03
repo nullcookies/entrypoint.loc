@@ -14,8 +14,8 @@
 
         <h1 align="center">Hello, world!</h1>
         <div class="alert alert-primary" role="alert">
-  A simple primary alert—check it out!
-</div>
+            A simple primary alert—check it out!
+        </div>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="components/jquery/jquery.min.js"></script>
