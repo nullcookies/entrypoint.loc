@@ -1,6 +1,9 @@
 <?php
 
-function app()
+if (!function_exists('app'))
 {
-    return App\System\App::getInstance();
+    function app()
+    {
+        return App\System\App::getInstance();
+    }
 }
