@@ -12,7 +12,9 @@
         "symfony/templating": "^5.0",
         "symfony/yaml": "^5.0",
         "symfony/http-foundation": "^5.0",
-        "symfony/http-kernel": "^5.0"
+        "symfony/http-kernel": "^5.0",
+        "twbs/bootstrap": "^4.4.1",
+        "components/jquery": "^3.4.1"
     },
     "require-dev": {
         "symfony/var-dumper": "^5.0"
