@@ -2,5 +2,5 @@ database:
     dbname: "test"
     user: "root"
     password: ""
-    host: ""
+    host: "127.0.0.1"
     driver: "pdo_mysql"

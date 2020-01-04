@@ -37,19 +37,37 @@ class Config implements IConfig
 
     public function get($keyValue)
     {
-        list($key,$value) = explode('.',$keyValue);
-
-        if ($key && isset($this->config[$key]))
-        {
-            if($value && ($this->config[$key][$value]))
+        if (!isset($keyValue)){
+            return null;
+        } 
+        if (strpos($keyValue, '.')){
+            list($key,$value) = explode('.',$keyValue);
+            if ($this->config[$key][$value])
             {
                 return $this->config[$key][$value];
             }
-            else
-            {
-                return $this->config[$key];
-            }
         }
+        else
+        {
+            return $this->config[$keyValue];
+        }
+
+
+
+
+        // list($key,$value) = explode('.',$keyValue);
+
+        // if ($key && isset($this->config[$key]))
+        // {
+        //     if($value && ($this->config[$key][$value]))
+        //     {
+        //         return $this->config[$key][$value];
+        //     }
+        //     else
+        //     {
+        //         return $this->config[$key];
+        //     }
+        // }
         return null;
     }
 
